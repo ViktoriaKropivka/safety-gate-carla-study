@@ -1,0 +1,553 @@
+{
+  "created_utc": "2026-11-03T09:35:21Z",
+  "client_version": "0.9.16",
+  "server_version": "0.9.16",
+  "map": "Carla/Maps/Town04_Opt",
+  "vehicle_blueprint": "vehicle.lincoln.mkz_2017",
+  "spawn_index": 90,
+  "straight_continuation_estimate_m": 80.01766765117645,
+  "elevation_range_estimate_m": 0.0,
+  "fixed_delta_seconds": 0.01,
+  "no_rendering_mode": true,
+  "weather": "ClearNoon",
+  "target_speeds_kmh_provisional": [
+    20.0,
+    30.0,
+    40.0,
+    50.0
+  ],
+  "repeats_per_speed": 3,
+  "pre_brake_speed_control": "proportional_speed_controller_then_stability_window",
+  "speed_tolerance_kmh": 1.0,
+  "settle_time_seconds": 1.0,
+  "approach_kp": 0.8,
+  "approach_ki": 0.25,
+  "approach_controller": "PI with conditional integration anti-windup; used only to reach/stabilize target speed before braking",
+  "approach_max_brake": 0.15,
+  "brake_command": 1.0,
+  "expected_baseline_tire_friction_readback_all_wheels": 3.5,
+  "tire_friction_is_modified_by_script": false,
+  "deceleration_onset_threshold_mps2": -0.5,
+  "deceleration_onset_requires_consecutive_samples": 2,
+  "note": "Corrected unified multi-speed calibration series using PI speed stabilization with conditional-integration anti-windup. Target speeds are provisional calibration points, not the final main-experiment grid. Speed is stabilized in a target band before full braking. This script does not modify tire friction or other vehicle physics; it verifies the baseline tire-friction readback.",
+  "actual_tire_friction_readback_all_wheels_by_run": {
+    "v20_r1": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v20_r2": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v20_r3": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v30_r1": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v30_r2": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v30_r3": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v40_r1": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v40_r2": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v40_r3": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v50_r1": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v50_r2": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "v50_r3": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ]
+  },
+  "vehicle_physics_by_run": {
+    "v20_r1": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v20_r2": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v20_r3": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v30_r1": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v30_r2": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v30_r3": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v40_r1": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v40_r2": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v40_r3": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v50_r1": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v50_r2": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    },
+    "v50_r3": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    }
+  }
+}

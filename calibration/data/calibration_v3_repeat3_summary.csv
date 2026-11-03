@@ -1,0 +1,13 @@
+run_id,vehicle_blueprint,map,spawn_index,target_speed_kmh,repeat,actual_speed_at_brake_kmh,max_speed_after_brake_command_kmh,brake_command_time_s,observed_decel_onset_time_s,observed_command_to_decel_s,stopping_time_after_command_s,stopping_distance_m,max_observed_deceleration_mps2,max_smoothed_deceleration_5step_mps2,onset_threshold_mps2,fixed_delta_seconds,stop_speed_threshold_mps,speed_tolerance_kmh,settle_time_s,speed_stable_before_braking,onset_detected
+v20_r1,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,20.000,1,19.3236,19.5536,26.9735,27.0635,0.0900,0.5100,1.2435,26.8919,24.0659,-0.500,0.010,0.080,1.000,1.000,True,True
+v20_r2,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,20.000,2,19.3084,19.3129,32.6135,32.6535,0.0400,0.5300,1.4144,26.5616,24.6107,-0.500,0.010,0.080,1.000,1.000,True,True
+v20_r3,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,20.000,3,19.3085,19.3130,38.2735,38.3135,0.0400,0.5300,1.4144,26.5622,24.6107,-0.500,0.010,0.080,1.000,1.000,True,True
+v30_r1,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,30.000,1,29.2610,29.3909,44.3535,44.7035,0.3500,0.8200,3.8863,26.7067,26.3788,-0.500,0.010,0.080,1.000,1.000,True,True
+v30_r2,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,30.000,2,29.2649,29.3948,50.7435,51.0935,0.3500,0.8200,3.8869,26.7071,26.3788,-0.500,0.010,0.080,1.000,1.000,True,True
+v30_r3,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,30.000,3,29.2762,29.2784,56.8935,56.9235,0.0300,0.7800,3.6607,26.6960,26.5426,-0.500,0.010,0.080,1.000,1.000,True,True
+v40_r1,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,40.000,1,39.2684,39.3412,63.2935,63.3635,0.0700,1.0600,6.7089,26.8044,26.6269,-0.500,0.010,0.080,1.000,1.000,True,True
+v40_r2,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,40.000,2,39.2687,39.3415,69.9735,70.0435,0.0700,1.0600,6.7089,26.8043,26.6269,-0.500,0.010,0.080,1.000,1.000,True,True
+v40_r3,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,40.000,3,39.2701,39.3431,76.6535,76.7235,0.0700,1.0600,6.7096,26.8041,26.6269,-0.500,0.010,0.080,1.000,1.000,True,True
+v50_r1,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,50.000,1,49.2787,49.2811,83.7435,83.7635,0.0200,1.4200,11.3286,26.7248,26.3711,-0.500,0.010,0.080,1.000,1.000,True,True
+v50_r2,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,50.000,2,49.2787,49.2811,91.1935,91.2135,0.0200,1.4200,11.3286,26.7250,26.3711,-0.500,0.010,0.080,1.000,1.000,True,True
+v50_r3,vehicle.lincoln.mkz_2017,Carla/Maps/Town04_Opt,90,50.000,3,49.2787,49.2811,98.6435,98.6635,0.0200,1.4200,11.3286,26.7249,26.3710,-0.500,0.010,0.080,1.000,1.000,True,True

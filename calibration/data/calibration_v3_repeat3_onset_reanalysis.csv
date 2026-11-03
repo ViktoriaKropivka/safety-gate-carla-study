@@ -1,0 +1,13 @@
+﻿run_id,target_speed_kmh,actual_speed_at_brake_kmh,old_onset_delay_s,new_smoothed_onset_delay_s,new_onset_estimate_time_s,window_steps,window_seconds,threshold_mps2,consecutive_windows,onset_found,note
+v20_r1,20.000,19.3236,0.0900,0.0500,27.0235,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v20_r2,20.000,19.3084,0.0400,0.0200,32.6335,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v20_r3,20.000,19.3085,0.0400,0.0200,38.2935,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v30_r1,30.000,29.2610,0.3500,0.0300,44.3835,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v30_r2,30.000,29.2649,0.3500,0.0300,50.7735,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v30_r3,30.000,29.2762,0.0300,0.0000,56.8935,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v40_r1,40.000,39.2684,0.0700,0.0100,63.3035,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v40_r2,40.000,39.2687,0.0700,0.0100,69.9835,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v40_r3,40.000,39.2701,0.0700,0.0100,76.6635,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v50_r1,50.000,49.2787,0.0200,0.0000,83.7435,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v50_r2,50.000,49.2787,0.0200,0.0000,91.1935,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
+v50_r3,50.000,49.2787,0.0200,0.0000,98.6435,5,0.050,-0.5,2,True,"first qualifying smoothed-window start; derived metric, not a new CARLA event"
