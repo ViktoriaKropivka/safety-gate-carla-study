@@ -1,0 +1,98 @@
+{
+  "created_utc": "2026-11-10T12:50:52Z",
+  "client_version": "0.9.16",
+  "server_version": "0.9.16",
+  "map": "Carla/Maps/Town04_Opt",
+  "vehicle_blueprint": "vehicle.lincoln.mkz_2017",
+  "spawn_index": 90,
+  "straight_continuation_estimate_m": 80.01766765117645,
+  "elevation_range_estimate_m": 0.0,
+  "fixed_delta_seconds": 0.01,
+  "no_rendering_mode": true,
+  "world_sync_enabled_before_target_map_load": true,
+  "target_map_loaded_with_reset_settings_false": true,
+  "world_reloaded_before_each_run_after_first": true,
+  "world_reload_call": "world = client.reload_world(reset_settings=False); retain returned World handle",
+  "warmup_ticks_after_each_load_or_reload": 1,
+  "world_handle_reacquired_after_reload": true,
+  "actor_cleanup_between_runs": "do not call Actor.destroy before reload; drop old Python actor/map/blueprint references and let reload_world destroy all actors",
+  "reload_world_return_value_retained": true,
+  "vehicle_control_submission": "client.apply_batch_sync([ApplyVehicleControl], due_tick_cue=False) followed by world.tick()",
+  "spawn_transform_policy": "same selected spawn index and +0.15 m Z offset; no alternate-transform fallback",
+  "initial_warmup_frame_after_target_map_load": 25476,
+  "weather": "ClearNoon",
+  "target_speeds_kmh_provisional": [
+    30.0
+  ],
+  "repeats_per_speed": 1,
+  "pre_brake_speed_control": "proportional_speed_controller_then_stability_window",
+  "speed_tolerance_kmh": 1.0,
+  "settle_time_seconds": 1.0,
+  "approach_kp": 0.8,
+  "approach_ki": 0.25,
+  "approach_controller": "PI with conditional integration anti-windup; used only to reach/stabilize target speed before braking",
+  "approach_max_brake": 0.15,
+  "brake_command": 1.0,
+  "expected_baseline_tire_friction_readback_all_wheels": 3.5,
+  "tire_friction_is_modified_by_script": false,
+  "deceleration_onset_threshold_mps2": -0.5,
+  "deceleration_onset_requires_consecutive_samples": 2,
+  "note": "Corrected unified multi-speed calibration series using PI speed stabilization with conditional-integration anti-windup. Target speeds are provisional calibration points, not the final main-experiment grid. Speed is stabilized in a target band before full braking. This script does not modify tire friction or other vehicle physics; it verifies the baseline tire-friction readback.",
+  "per_run_world_state": {
+    "v30_r1": {
+      "warmup_frame": 25476,
+      "spawn_index": 90,
+      "spawn_x_m": -16.246213912963867,
+      "spawn_y_m": -47.01910400390625,
+      "spawn_z_m": 0.4319424331188202,
+      "spawn_yaw_deg": 89.77516174316406
+    }
+  },
+  "actual_tire_friction_readback_all_wheels_by_run": {
+    "v30_r1": [
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ]
+  },
+  "vehicle_physics_by_run": {
+    "v30_r1": {
+      "mass_kg": 1696.0,
+      "drag_coefficient": 0.30000001192092896,
+      "use_gear_autobox": true,
+      "gear_switch_time_s": 0.10000000149011612,
+      "center_of_mass": {
+        "x": 0.5999999642372131,
+        "y": 0.0,
+        "z": -0.29999998211860657
+      },
+      "wheels": [
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 69.99999237060547
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        },
+        {
+          "tire_friction": 3.5,
+          "max_brake_torque_Nm": 800.0,
+          "radius_cm": 35.5,
+          "max_steer_angle_deg": 0.0
+        }
+      ]
+    }
+  }
+}

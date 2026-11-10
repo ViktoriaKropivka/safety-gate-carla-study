@@ -4,7 +4,9 @@
 
 This repository contains the code and experimental data for braking calibration of a simulated vehicle in CARLA.
 
-The calibration experiments characterize the braking response of a `vehicle.lincoln.mkz_2017` vehicle at different initial speeds. The resulting time series are intended to support the analysis of emergency braking and collision outcomes in a vehicle-following scenario with an artificial Safety Gate reaction delay.
+The calibration experiments characterize the braking response of a `vehicle.lincoln.mkz_2017` vehicle at four target initial speeds: 20, 30, 40, and 50 km/h. Three runs were performed at each target speed, giving 12 calibration runs in total.
+
+The resulting time series are intended to support the analysis of emergency braking and collision outcomes in a vehicle-following scenario with an artificial Safety Gate reaction delay.
 
 All experiments described here were conducted in simulation. The parameters and results should not be interpreted as real-world vehicle specifications.
 
@@ -24,7 +26,11 @@ All experiments described here were conducted in simulation. The parameters and 
 | Repetitions | 3 per target speed |
 | Total calibration runs | 12 |
 
-The calibration script uses a speed-control phase to reach and stabilize the target speed, followed by a full-brake command. Vehicle physics parameters are not modified by the calibration procedure.
+Each calibration run is executed in a separate Python process. The script loads the simulation world, configures synchronous mode and the fixed time step, creates the vehicle, stabilizes its speed near the target value, and then applies a full-brake command.
+
+Vehicle physics parameters are not modified by the calibration procedure.
+
+The target speeds are control setpoints. For quantitative analysis, the measured vehicle speed at the brake-command time should be used as the actual initial braking speed.
 
 ## Repository structure
 
@@ -33,91 +39,95 @@ safety-gate-carla-study/
 ├── README.md
 └── calibration/
     ├── code/
-    │   ├── carla_brake_calibration_multispeed_v3.py
-    │   └── reanalyze_calibration_braking_onset.py
+    │   ├── carla_brake_calibration_multispeed_v4_3_deterministic.py
+    │   ├── reanalyze_calibration_braking_onset.py
+    │   └── analyze_calibration_timeseries_v2.py
     ├── data/
-    │   ├── calibration_v3_repeat3_timestep.csv
-    │   ├── calibration_v3_repeat3_summary.csv
-    │   ├── calibration_v3_repeat3_metadata.json
-    │   ├── calibration_v3_repeat3_onset_reanalysis.csv
-    │   └── lincoln_calibration_v3_onset_reanalysis.csv
+    │   ├── manual_20_r1_timestep.csv
+    │   ├── manual_20_r1_summary.csv
+    │   ├── manual_20_r1_metadata.json
+    │   ├── ...
+    │   ├── manual_50_r3_timestep.csv
+    │   ├── manual_50_r3_summary.csv
+    │   ├── manual_50_r3_metadata.json
+    │   └── ...
     └── figures/
 ```
 
-The `lincoln_calibration_v3_onset_reanalysis.csv` file contains an earlier analysis of the original single-run calibration series. The `calibration_v3_repeat3_onset_reanalysis.csv` file contains the reanalysis of the three-repeat dataset.
+The `data` directory contains separate time-series, summary, and metadata files for each of the 12 runs. The filename identifies the target speed and repetition number.
+
+Earlier calibration datasets and their analyses, if retained in the repository, should be treated as separate historical datasets and not combined with the 12 runs described above without an explicit analysis procedure.
 
 ## Code
 
-### Calibration
+### Deterministic calibration
 
-`calibration/code/carla_brake_calibration_multispeed_v3.py`
+`calibration/code/carla_brake_calibration_multispeed_v4_3_deterministic.py`
 
-Runs the multi-speed braking calibration and records time-series data, run summaries, and simulation metadata.
+Runs one calibration experiment in a separate Python process. The script configures the CARLA world, stabilizes the vehicle near the selected target speed, applies full braking, and saves the time-series data, run summary, and simulation metadata.
 
-Example command:
+The 12-run series is produced by launching the script separately for each target-speed and repetition combination.
 
-```powershell
-python carla_brake_calibration_multispeed_v3.py --map Town04_Opt --vehicle vehicle.lincoln.mkz_2017 --speeds-kmh 20,30,40,50 --repeats 3 --spawn-index 90 --speed-tolerance-kmh 1 --settle-time-s 1 --approach-kp 0.8 --approach-ki 0.25 --approach-max-brake 0.15 --expected-tire-friction 3.5 --output calibration_v3_repeat3_timestep.csv --summary calibration_v3_repeat3_summary.csv --metadata calibration_v3_repeat3_metadata.json
-```
-
-Run the command from an environment where CARLA 0.9.16 and its Python API are available.
+Run the script from an environment where CARLA 0.9.16 and its Python API are available. Consult the script's command-line arguments for the exact options used for an individual run.
 
 ### Braking onset reanalysis
 
 `calibration/code/reanalyze_calibration_braking_onset.py`
 
-Performs post-processing of the recorded calibration data. It estimates braking onset using a five-step speed-trend window (0.05 s), a deceleration threshold of -0.5 m/s², and two consecutive qualifying windows.
+Performs post-processing of the recorded calibration data. The selected onset estimator uses:
 
-Example command:
+- a five-step speed-trend window, corresponding to 0.05 s at the 0.01 s simulation time step;
+- a deceleration threshold of -0.5 m/s²;
+- two consecutive qualifying windows to confirm the detection.
 
-```powershell
-python reanalyze_calibration_braking_onset.py --timestep calibration_v3_repeat3_timestep.csv --summary calibration_v3_repeat3_summary.csv --output calibration_v3_repeat3_onset_reanalysis.csv
-```
+The onset is assigned retrospectively to the first qualifying window after the second qualifying window confirms the trend. Therefore, this estimate is a post-processing measure and should not be interpreted as an online detection time or as a direct measurement of physical brake-system latency.
 
 This is a post-processing operation and does not launch CARLA.
+
+### Time-series analysis
+
+`calibration/code/analyze_calibration_timeseries_v2.py`
+
+Analyzes the recorded calibration time series and produces derived braking metrics and visualizations. Acceleration and displacement values are derived from the recorded speed and time data; they are not direct measurements from dedicated acceleration or position sensors.
 
 ## Data files
 
 ### Time-series CSV
 
-`calibration_v3_repeat3_timestep.csv`
-
-Contains time-series measurements and control information for each calibration run.
+Each `manual_<speed>_r<repeat>_timestep.csv` file contains the time-series measurements and control information for one calibration run.
 
 Important fields include:
 
 - `run_id` — identifier of the run;
+- `vehicle_blueprint` — vehicle blueprint;
+- `map` — CARLA map;
+- `spawn_index` — vehicle spawn point index;
 - `target_speed_kmh` — target initial speed;
 - `repeat` — repetition number;
 - `phase` — experimental phase (`speed_control` or `brake`);
+- `frame` — simulation frame;
 - `sim_time_s` — simulation time;
 - `speed_mps`, `speed_kmh` — vehicle speed;
 - `longitudinal_accel_mps2` — longitudinal acceleration estimated from changes in speed;
 - `distance_from_brake_start_m` — longitudinal displacement from the beginning of braking;
 - `requested_throttle`, `requested_brake` — requested control inputs;
 - `applied_throttle`, `applied_brake` — applied control inputs;
-- `brake_command_time_s` — time of the emergency brake command;
-- `observed_decel_onset_time_s` — estimated onset of deceleration.
+- `brake_command_time_s` — time of the full-brake command;
+- `observed_decel_onset_time_s` — estimated onset of deceleration, where available.
 
 Acceleration is calculated from the speed time series using finite differences; it is not a direct accelerometer measurement. The recorded distance is displacement from the braking start, not absolute vehicle position.
 
 ### Summary CSV
 
-`calibration_v3_repeat3_summary.csv`
-
-Contains run-level calibration results, including initial speed, stopping time, stopping distance, and deceleration-related values.
+Each `manual_<speed>_r<repeat>_summary.csv` file contains run-level calibration results, including the measured initial speed, stopping time, stopping distance, and deceleration-related values.
 
 ### Metadata JSON
 
-`calibration_v3_repeat3_metadata.json`
+Each `manual_<speed>_r<repeat>_metadata.json` file contains the simulation and vehicle configuration metadata recorded during the corresponding calibration run.
 
-Contains simulation and vehicle configuration metadata recorded during calibration.
+### Braking onset analysis
 
-### Braking onset analysis CSV
-
-`calibration_v3_repeat3_onset_reanalysis.csv`
-
-Contains braking onset estimates for all 12 runs, calculated using the post-processing method described above.
+The braking onset reanalysis produces derived onset estimates for the individual calibration runs. These estimates depend on the selected window and threshold criteria and should be interpreted accordingly.
 
 ## Interpretation and limitations
 
@@ -127,9 +137,14 @@ The braking trajectory should be evaluated using the recorded speed and displace
 
 Braking onset estimates are method-dependent. A reported delay of 0.00 s means that deceleration was detected within the temporal resolution and criteria of the analysis; it does not establish zero physical response latency.
 
-The three repetitions are used to assess the reproducibility of the simulation procedure. They are repeated simulation runs, not independent real-world experimental samples.
+The three repetitions at each target speed are repeated simulation runs intended to support an assessment of procedural repeatability. Quantitative repeatability conclusions require comparison of the measured initial speeds, braking trajectories, stopping times, and stopping distances across repetitions.
+
+The calibration profiles are intended for subsequent Safety Gate forecasting. Their use for forecasting requires a separate validation of the profile construction and interpolation procedure. Calibration data alone do not establish the accuracy of future collision predictions.
 
 ## Reproducibility
 
-The scripts and recorded data are provided to document the calibration procedure and allow the analysis to be repeated. The simulator version, map, vehicle blueprint, time step, and other configuration parameters should be kept consistent when reproducing the experiments.
+The scripts and recorded data are provided to document the calibration procedure and allow the analysis to be repeated.
 
+For reproducibility, keep the CARLA version, map, vehicle blueprint, spawn point, synchronous mode, fixed time step, weather, and vehicle configuration consistent. Each calibration run should be launched in a separate Python process using the documented configuration.
+
+The target speed is a setpoint; analyses should use the measured speed at the brake-command time. Any comparison between calibration runs should retain the individual run identifiers and repetition numbers.
