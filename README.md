@@ -2,7 +2,9 @@
 
 ## Project overview
 
-This repository contains the code and experimental data for braking calibration of a simulated vehicle in CARLA.
+This repository contains the code and experimental data for two parts of the Safety Gate study:
+(1) braking-response calibration of a simulated vehicle in CARLA and
+(2) a two-vehicle pilot evaluating the Safety Gate approach in a vehicle-following scenario.
 
 The calibration experiments characterize the braking response of a `vehicle.lincoln.mkz_2017` vehicle at four target initial speeds: 20, 30, 40, and 50 km/h. Three runs were performed at each target speed, giving 12 calibration runs in total.
 
@@ -36,22 +38,17 @@ The target speeds are control setpoints. For quantitative analysis, the measured
 
 ```text
 safety-gate-carla-study/
+│
+├── calibration/
+│   ├── code/
+│   └── data/
+│
+├── pilot/
+│   ├── code/
+│   └── data/
+│
 ├── README.md
-└── calibration/
-    ├── code/
-    │   ├── carla_brake_calibration_multispeed_v4_3_deterministic.py
-    │   ├── reanalyze_calibration_braking_onset.py
-    │   └── analyze_calibration_timeseries_v2.py
-    ├── data/
-    │   ├── manual_20_r1_timestep.csv
-    │   ├── manual_20_r1_summary.csv
-    │   ├── manual_20_r1_metadata.json
-    │   ├── ...
-    │   ├── manual_50_r3_timestep.csv
-    │   ├── manual_50_r3_summary.csv
-    │   ├── manual_50_r3_metadata.json
-    │   └── ...
-    └── figures/
+└── .gitignore
 ```
 
 The `data` directory contains separate time-series, summary, and metadata files for each of the 12 runs. The filename identifies the target speed and repetition number.
@@ -83,12 +80,6 @@ Performs post-processing of the recorded calibration data. The selected onset es
 The onset is assigned retrospectively to the first qualifying window after the second qualifying window confirms the trend. Therefore, this estimate is a post-processing measure and should not be interpreted as an online detection time or as a direct measurement of physical brake-system latency.
 
 This is a post-processing operation and does not launch CARLA.
-
-### Time-series analysis
-
-`calibration/code/analyze_calibration_timeseries_v2.py`
-
-Analyzes the recorded calibration time series and produces derived braking metrics and visualizations. Acceleration and displacement values are derived from the recorded speed and time data; they are not direct measurements from dedicated acceleration or position sensors.
 
 ## Data files
 
@@ -140,6 +131,48 @@ Braking onset estimates are method-dependent. A reported delay of 0.00 s means t
 The three repetitions at each target speed are repeated simulation runs intended to support an assessment of procedural repeatability. Quantitative repeatability conclusions require comparison of the measured initial speeds, braking trajectories, stopping times, and stopping distances across repetitions.
 
 The calibration profiles are intended for subsequent Safety Gate forecasting. Their use for forecasting requires a separate validation of the profile construction and interpolation procedure. Calibration data alone do not establish the accuracy of future collision predictions.
+
+## Two-vehicle pilot
+
+The two-vehicle pilot evaluates the Safety Gate approach in a simulated vehicle-following scenario.
+
+The retained pilot dataset consists of five selected cases:
+
+- A: PD-only baseline (30-second run);
+- B: immediate-braking baseline;
+- C: Safety Gate run using version 1.2;
+- D: Safety Gate run using version 1.2.1;
+- INVALID: invalid case used in the pilot analysis.
+
+### Pilot code
+
+The following scripts are retained for the selected pilot experiments:
+
+| Script | Purpose |
+|---|---|
+| `carla_two_vehicle_pd_pilot.py` | Baseline A: PD-only |
+| `carla_two_vehicle_baseline_immediate_brake.py` | Baseline B: immediate braking |
+| `carla_two_vehicle_safety_gate_v1_2.py` | Safety Gate run C |
+| `carla_two_vehicle_safety_gate_v1_2_1.py` | Safety Gate runs D and INVALID |
+| `summarize_two_vehicle_pd_pilot_v2.py` | Analysis of A |
+| `analyze_two_vehicle_baseline.py` | Analysis of B |
+| `analyze_safety_gate_run_v1_2.py` | Analysis of C, D, and INVALID |
+
+### Pilot data
+
+Each retained pilot case is represented by a JSON summary and a CSV time-series file.
+
+| Case | Summary | Time series |
+|---|---|---|
+| A | `two_vehicle_pd_only_30s_summary.json` | `two_vehicle_pd_only_30s_timestep.csv` |
+| B | `baseline_b_summary.json` | `baseline_b_timestep.csv` |
+| C | `baseline_c_v12_summary.json` | `baseline_c_v12_timestep.csv` |
+| D | `baseline_d_05s_summary.json` | `baseline_d_05s_timestep.csv` |
+| INVALID | `baseline_invalid_summary.json` | `baseline_invalid_timestep.csv` |
+
+The braking profile `leader_braking_profile_50kmh.csv`, stored in `calibration/data/`, is also used in the pilot.
+
+The pilot dataset contains the selected runs used in the reported analysis. Earlier exploratory runs, intermediate versions, and diagnostic datasets are not part of the retained pilot dataset.
 
 ## Reproducibility
 

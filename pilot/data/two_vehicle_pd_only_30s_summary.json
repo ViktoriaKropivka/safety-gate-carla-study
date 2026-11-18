@@ -1,0 +1,122 @@
+{
+  "created_utc": "2026-11-17T12:41:54Z",
+  "stage": "Stage 1 / PD only / no Safety Gate",
+  "client_version": "0.9.16",
+  "server_version": "0.9.16",
+  "map": "Carla/Maps/Town04_Opt",
+  "spawn_index": 90,
+  "vehicle_blueprint": "vehicle.lincoln.mkz_2017",
+  "fixed_delta_seconds": 0.01,
+  "no_rendering_mode": true,
+  "weather": "ClearNoon",
+  "warmup_frame": 2368,
+  "target_speed_kmh": 49.2787,
+  "ego_initial_speed_kmh": 49.20654240054693,
+  "lead_initial_speed_kmh": 49.206635215219606,
+  "calibrated_speed_range_kmh": [
+    19.3085,
+    49.2787
+  ],
+  "requested_initial_bumper_gap_m": 22.53,
+  "measured_initial_bumper_gap_m": 22.516840263687925,
+  "final_bumper_gap_m": 3.5623687258604093,
+  "desired_gap_at_start_m": 22.502726000227888,
+  "ego_vehicle_physics": {
+    "mass_kg": 1696.0,
+    "drag_coefficient": 0.30000001192092896,
+    "use_gear_autobox": true,
+    "gear_switch_time_s": 0.10000000149011612,
+    "wheels": [
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      }
+    ]
+  },
+  "lead_vehicle_physics": {
+    "mass_kg": 1696.0,
+    "drag_coefficient": 0.30000001192092896,
+    "use_gear_autobox": true,
+    "gear_switch_time_s": 0.10000000149011612,
+    "wheels": [
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      }
+    ]
+  },
+  "tire_friction_readback_all_wheels": [
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5
+  ],
+  "lead_brake_command": 1.0,
+  "ego_pd_parameters": {
+    "d0_m": 2.0,
+    "headway_s": 1.5,
+    "kp_s_minus_2": 0.2,
+    "kd_s_minus_1": 0.6,
+    "acceleration_limits_mps2": [
+      -6.0,
+      2.0
+    ],
+    "throttle_mapping": "max(0, min(1, a_cmd/2)) when a_cmd >= 0",
+    "brake_mapping": "max(0, min(1, -a_cmd/6)) when a_cmd < 0"
+  },
+  "ego_deceleration_onset_estimate_s": 0.05999999865889549,
+  "lead_deceleration_onset_estimate_s": 0.04999999888241291,
+  "min_bumper_gap_m": 3.5623687258604093,
+  "collision_detected": false,
+  "collision_events": [],
+  "episode_duration_s": 19.55999956279993,
+  "lead_profile_speed_mae_mps": 0.0014824244203908933,
+  "lead_profile_displacement_mae_m": 0.025937268502879005,
+  "reference_profile_csv": "C:\\Users\\User\\Downloads\\safety-gate-carla-study\\test_run\\leader_braking_profile_50kmh.csv",
+  "csv_output": "C:\\Users\\User\\Downloads\\safety-gate-carla-study\\test_run\\two_vehicle_pd_only_30s_timestep.csv",
+  "note": "Pilot result only. No Safety Gate is implemented. The 22.53 m initial gap and PD parameters are provisional experimental inputs, not validated safety limits."
+}

@@ -1,0 +1,153 @@
+{
+  "created_utc": "2026-11-17T14:29:28Z",
+  "stage": "Baseline C / Safety Gate / configurable artificial delay",
+  "client_version": "0.9.16",
+  "server_version": "0.9.16",
+  "map": "Carla/Maps/Town04_Opt",
+  "spawn_index": 90,
+  "vehicle_blueprint": "vehicle.lincoln.mkz_2017",
+  "fixed_delta_seconds": 0.01,
+  "no_rendering_mode": true,
+  "weather": "ClearNoon",
+  "warmup_frame": 29370,
+  "target_speed_kmh": 49.2787,
+  "ego_initial_speed_kmh": 49.20654240054693,
+  "lead_initial_speed_kmh": 49.206635215219606,
+  "calibrated_speed_range_kmh": [
+    19.3085,
+    49.2787
+  ],
+  "requested_initial_bumper_gap_m": 22.53,
+  "measured_initial_bumper_gap_m": 22.516840263687925,
+  "final_bumper_gap_m": 22.516453460803106,
+  "desired_gap_at_start_m": 22.502726000227888,
+  "ego_vehicle_physics": {
+    "mass_kg": 1696.0,
+    "drag_coefficient": 0.30000001192092896,
+    "use_gear_autobox": true,
+    "gear_switch_time_s": 0.10000000149011612,
+    "wheels": [
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      }
+    ]
+  },
+  "lead_vehicle_physics": {
+    "mass_kg": 1696.0,
+    "drag_coefficient": 0.30000001192092896,
+    "use_gear_autobox": true,
+    "gear_switch_time_s": 0.10000000149011612,
+    "wheels": [
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 69.99999237060547
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      },
+      {
+        "tire_friction": 3.5,
+        "max_brake_torque_Nm": 800.0,
+        "radius_cm": 35.5,
+        "max_steer_angle_deg": 0.0
+      }
+    ]
+  },
+  "tire_friction_readback_all_wheels": [
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5,
+    3.5
+  ],
+  "lead_brake_command": 1.0,
+  "reference_profile_mode": "DISABLED_FOR_INVALID_TEST",
+  "reference_profile_path": null,
+  "safety_gate": {
+    "delay_s": 0.5,
+    "safe_margin_m": 4.0,
+    "prediction_horizon_s": 2.0,
+    "gate_triggered": true,
+    "gate_latched": true,
+    "gate_reason": "INVALID_FAILSAFE",
+    "invalid_reason": "EMPTY_BRAKING_PROFILE",
+    "invalid_event_count": 1,
+    "unsafe_cancel_count": 0,
+    "valid_forecast_ticks": 0,
+    "invalid_forecast_ticks": 1,
+    "minimum_predicted_gap_m": null,
+    "t_U_s": null,
+    "t_B_req_s": 0.0,
+    "t_B_applied_s": 0.009999999776482582,
+    "t_B_act_s": 0.04999999888241291,
+    "D_SG_s": null,
+    "D_req_to_applied_s": 0.009999999776482582,
+    "D_total_s": null,
+    "preexisting_ego_decel_at_tU": null,
+    "ego_pd_brake_at_tU": null,
+    "ego_smoothed_accel_at_tU_mps2": null,
+    "t_B_act_definition": "First detected ego deceleration onset after Gate full-brake command readback; D_total is omitted if ego was already decelerating at t_U, because a distinct Gate-caused onset cannot then be isolated by this detector.",
+    "latch_rule": "After Gate sends full-brake command, BRAKE_ACTIVE remains latched and cannot revert to SAFE/UNSAFE/INVALID.",
+    "invalid_policy": "INVALID before a brake request triggers immediate fail-safe full braking; it bypasses artificial delay.",
+    "ego_profile_prediction": "The current ego speed is phase-matched to the remaining tail of the full-brake profile selected from the in-range episode-start speed; this assumption requires pilot validation."
+  },
+  "ego_pd_parameters": {
+    "d0_m": 2.0,
+    "headway_s": 1.5,
+    "kp_s_minus_2": 0.2,
+    "kd_s_minus_1": 0.6,
+    "acceleration_limits_mps2": [
+      -6.0,
+      2.0
+    ],
+    "throttle_mapping": "max(0, min(1, a_cmd/2)) when a_cmd >= 0",
+    "brake_mapping": "max(0, min(1, -a_cmd/6)) when a_cmd < 0"
+  },
+  "ego_deceleration_onset_estimate_s": 0.04999999888241291,
+  "lead_deceleration_onset_estimate_s": 0.04999999888241291,
+  "min_bumper_gap_m": 22.515695264936653,
+  "collision_detected": false,
+  "collision_events": [],
+  "episode_duration_s": 1.4199999682605267,
+  "lead_profile_speed_mae_mps": null,
+  "lead_profile_displacement_mae_m": null,
+  "reference_profile_csv": null,
+  "csv_output": "C:\\Users\\User\\Downloads\\safety-gate-carla-study\\test_run\\baseline_invalid_timestep.csv",
+  "ego_acceleration_diagnostics": "CARLA-reported world acceleration vector plus longitudinal/lateral projection; gear, hand_brake, reverse and manual_gear_shift are logged per tick.",
+  "note": "Pilot result. Vehicle physics remains unchanged. The 22.53 m initial gap and PD parameters are provisional experimental inputs. A no-trigger result means this scenario did not enter UNSAFE under the specified 2.0 m predicted-gap criterion."
+}
