@@ -1,0 +1,54 @@
+{
+  "created_utc": "2026-11-24T12:46:20Z",
+  "source_dataset": "12 separate manual_<speed>_r<repeat> calibration runs",
+  "source_identity_rule": "source_timestep_file + repeat_from_filename; inner run_id is retained only as descriptive metadata because it repeats across some files",
+  "source_files": [
+    "manual_20_r1_timestep.csv",
+    "manual_20_r2_timestep.csv",
+    "manual_20_r3_timestep.csv",
+    "manual_30_r1_timestep.csv",
+    "manual_30_r2_timestep.csv",
+    "manual_30_r3_timestep.csv",
+    "manual_40_r1_timestep.csv",
+    "manual_40_r2_timestep.csv",
+    "manual_40_r3_timestep.csv",
+    "manual_50_r1_timestep.csv",
+    "manual_50_r2_timestep.csv",
+    "manual_50_r3_timestep.csv"
+  ],
+  "n_runs": 12,
+  "target_speeds_kmh": [
+    20,
+    30,
+    40,
+    50
+  ],
+  "repeats_per_speed": {
+    "20": 3,
+    "30": 3,
+    "40": 3,
+    "50": 3
+  },
+  "sampling_step_s": 0.01,
+  "profile_alignment": "time relative to brake command; synthetic t=0 sample from measured initial speed and zero displacement; linear interpolation onto 0.01 s grid; last measured displacement held constant after the recorded profile end",
+  "profile_meaning": "mean speed and displacement profile at each calibrated starting speed; these profiles are built for subsequent multi-speed use and are not currently selected by the retained v1.2.1 pilot executor",
+  "holdout_validation": {
+    "method": "Leave-one-speed-out linear interpolation in measured initial speed between adjacent calibrated mean profiles",
+    "held_out_speeds_kmh": [
+      30,
+      40
+    ],
+    "maximum_single_vehicle_displacement_error_m": 0.8980509103443479,
+    "maximum_single_vehicle_error_scope_s": "0 to the end of the longer adjacent profile; maximum horizon 1.42 s",
+    "conservative_two_vehicle_gap_error_bound_m": 1.7961018206886958,
+    "bound_definition": "|e_gap| <= |e_lead_displacement| + |e_ego_displacement|; both terms are bounded by the maximum held-out single-vehicle displacement error",
+    "max_allowed_two_vehicle_gap_error_m": 1.8,
+    "acceptance": "Accept only when the validation bound is <= the configured allowance; otherwise Gate must use INVALID fail-safe braking",
+    "interpretation": "Preliminary engineering screening bound from two internal held-out speeds; not a statistical confidence bound and not evidence of extrapolation accuracy"
+  },
+  "outputs": {
+    "run_summary_csv": "calibration_12_run_summary.csv",
+    "mean_profiles_csv": "braking_profiles_4speeds_mean.csv",
+    "interpolation_validation_csv": "profile_interpolation_validation.csv"
+  }
+}

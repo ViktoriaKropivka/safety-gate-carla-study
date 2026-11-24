@@ -8,7 +8,7 @@ readback checks, PI speed stabilization, and unchanged vehicle physics.
 
 Safety Gate criterion: predicted minimum bumper gap under immediate emergency
 braking of ego, with the lead vehicle continuing its measured calibrated
-braking profile. Horizon=2.0 s; required reserve=2.0 m. The selected braking
+braking profile. Horizon=2.0 s; the historical C/D pilot used M_safe=4.0 m. The selected braking
 profile is fixed from the in-range initial speed. For ego's hypothetical
 emergency-braking forecast, its current speed is matched to the corresponding
 state along that already-selected full-stop profile; the remaining tail is
@@ -460,8 +460,8 @@ def main():
     parser.add_argument("--max-episode-s", type=float, default=DEFAULT_MAX_EPISODE_SECONDS)
     parser.add_argument("--gate-delay-s", type=float, default=0.0,
                         help="Artificial Safety Gate delay after UNSAFE detection; 0.0 for Baseline C.")
-    parser.add_argument("--safe-margin-m", type=float, default=2.0,
-                        help="Required minimum predicted bumper gap; article pilot value is 2.0 m.")
+    parser.add_argument("--safe-margin-m", type=float, default=4.0,
+                        help="Required minimum predicted bumper gap; default matches historical pilot C/D (4.0 m).")
     parser.add_argument("--prediction-horizon-s", type=float, default=2.0)
     parser.add_argument("--expected-tire-friction", type=float, default=3.5)
     parser.add_argument("--reference-profile", default="leader_braking_profile_50kmh.csv",
@@ -1069,7 +1069,7 @@ def main():
             "reference_profile_csv": os.path.abspath(profile_path) if profile_path else None,
             "csv_output": os.path.abspath(args.output),
             "ego_acceleration_diagnostics": "CARLA-reported world acceleration vector plus longitudinal/lateral projection; gear, hand_brake, reverse and manual_gear_shift are logged per tick.",
-            "note": "Pilot result. Vehicle physics remains unchanged. The 22.53 m initial gap and PD parameters are provisional experimental inputs. A no-trigger result means this scenario did not enter UNSAFE under the specified 2.0 m predicted-gap criterion.",
+            "note": f"Pilot result. Vehicle physics remains unchanged. The 22.53 m initial gap and PD parameters are provisional experimental inputs. A no-trigger result means this scenario did not enter UNSAFE under the configured M_safe={args.safe_margin_m:.1f} m predicted-gap criterion.",
         }
         with open(args.summary, "w", encoding="utf-8") as f:
             json.dump(summary, f, ensure_ascii=False, indent=2)

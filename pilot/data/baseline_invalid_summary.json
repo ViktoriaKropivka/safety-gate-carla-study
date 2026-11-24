@@ -149,5 +149,5 @@
   "reference_profile_csv": null,
   "csv_output": "C:\\Users\\User\\Downloads\\safety-gate-carla-study\\test_run\\baseline_invalid_timestep.csv",
   "ego_acceleration_diagnostics": "CARLA-reported world acceleration vector plus longitudinal/lateral projection; gear, hand_brake, reverse and manual_gear_shift are logged per tick.",
-  "note": "Pilot result. Vehicle physics remains unchanged. The 22.53 m initial gap and PD parameters are provisional experimental inputs. A no-trigger result means this scenario did not enter UNSAFE under the specified 2.0 m predicted-gap criterion."
+  "note": "Pilot result. Vehicle physics remains unchanged. The 22.53 m initial gap and PD parameters are provisional experimental inputs. The configured M_safe for this run was 4.0 m. The saved episode results are not modified by this clarification."
 }

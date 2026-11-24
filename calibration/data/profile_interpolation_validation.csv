@@ -1,0 +1,5 @@
+﻿held_out_target_speed_kmh,lower_profile_speed_kmh,upper_profile_speed_kmh,held_out_actual_initial_speed_kmh,interpolation_weight_alpha,held_out_stop_time_s,interpolated_scalar_stop_time_s,scalar_stop_time_error_s,window,window_start_s,window_end_s,mae_displacement_error_m,rmse_displacement_error_m,max_abs_displacement_error_m,time_of_max_error_s,signed_final_displacement_error_m
+30,20,40,29.261000,0.49862474,0.820,0.794,-0.026,until_heldout_stop,0.01,0.82,0.156725,0.218673,0.419768,0.52,0.122534
+30,20,40,29.261000,0.49862474,0.820,0.794,-0.026,extended_to_longer_neighbor_profile,0.01,1.06,0.158182,0.207456,0.419768,0.52,0.168064
+40,30,50,39.268400,0.49992756,1.060,1.120,0.060,until_heldout_stop,0.01,1.06,0.096752,0.173047,0.620466,1.06,0.620466
+40,30,50,39.268400,0.49992756,1.060,1.120,0.060,extended_to_longer_neighbor_profile,0.01,1.42,0.287292,0.454045,0.898051,1.42,0.898051

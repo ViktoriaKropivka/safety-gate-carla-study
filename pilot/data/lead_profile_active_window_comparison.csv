@@ -1,0 +1,4 @@
+﻿case,source_file,n_active_samples,active_window_start_s,active_window_end_s,active_window_s,active_speed_mae_mps,active_speed_rmse_mps,active_displacement_mae_m,endpoint_displacement_error_m,full_logged_window_speed_mae_mps
+A,two_vehicle_pd_only_30s_timestep.csv,142,0.01,1.42,1.42,0.02042021,0.02173795,0.01678239,-0.02853000,0.00148245
+C,baseline_c_v12_timestep.csv,142,0.01,1.42,1.42,0.02042021,0.02173795,0.01678239,-0.02853000,0.00173425
+D,baseline_d_05s_timestep.csv,142,0.01,1.42,1.42,0.02042021,0.02173795,0.01678239,-0.02853000,0.00168292

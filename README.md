@@ -181,3 +181,72 @@ The scripts and recorded data are provided to document the calibration procedure
 For reproducibility, keep the CARLA version, map, vehicle blueprint, spawn point, synchronous mode, fixed time step, weather, and vehicle configuration consistent. Each calibration run should be launched in a separate Python process using the documented configuration.
 
 The target speed is a setpoint; analyses should use the measured speed at the brake-command time. Any comparison between calibration runs should retain the individual run identifiers and repetition numbers.
+## Post-review reproducible calibration profile build
+
+The calibration campaign is complete. **Do not rerun CARLA calibration** to create the following files. They are post-processing outputs made from the 12 retained `manual_<speed>_r<repeat>_timestep.csv` and paired summary CSV files:
+
+```bash
+python calibration/code/build_calibration_profiles.py
+```
+
+The builder writes these files into `calibration/data/`:
+
+- `calibration_12_run_summary.csv` — exactly one record per original run file. It preserves the source timestep filename, paired summary filename, SHA-256 hashes, and repetition number parsed from the filename. The internal `run_id` is retained for reference but is not used as a unique key, because it is reused in some of the separated files.
+- `braking_profiles_4speeds_mean.csv` — mean speed/displacement profiles for the four calibrated starting-speed groups, time-aligned to the brake command. These profiles are prepared for the future multi-speed implementation.
+- `profile_interpolation_validation.csv` — leave-one-speed-out interpolation results for the internal 30 and 40 km/h points, including both the held-out stopping window and the extended neighbouring-profile window.
+- `calibration_profile_validation.json` — provenance and the two-vehicle forecast-gap error bound consumed by the post-review pilot runner.
+
+The profile builder is a deterministic post-processing program; it does not connect to CARLA. The original single-speed file `leader_braking_profile_50kmh.csv` is retained unchanged so that the historical A–D runs remain traceable.
+
+### Forecast-error criterion
+
+For an individual vehicle, let `e_i(tau)` be the absolute displacement error between an interpolated profile and the held-out calibration profile. The maximum observed error in the extended internal hold-out checks is 0.898051 m. A conservative bound for the forecast bumper-gap error is therefore
+
+`E_gap <= |e_lead| + |e_ego| <= 2 * 0.898051 = 1.796102 m`.
+
+The preliminary acceptance allowance is rounded upward to 1.80 m. The bound is limited to the two internal hold-out checks and the tested profile time span (up to 1.42 s, with displacement held constant after stopping); it is not a statistical confidence bound and does not validate extrapolation. A profile-validation bound that is missing, invalid, or greater than 1.80 m must lead to `INVALID` and immediate fail-safe braking. When a bound is accepted, the Gate compares the lower bound `predicted_min_gap - E_gap` with `M_safe`, rather than comparing the raw predicted gap alone.
+
+### Post-review pilot runner
+
+`pilot/code/carla_two_vehicle_safety_gate_v1_2_2.py` is the post-review runner for the next CARLA pilot. It adds:
+
+- integer-tick delay handling (0.50 s = exactly 50 ticks at 0.01 s; non-grid-aligned delays are rejected);
+- profile-validation metadata checks and conservative two-vehicle error subtraction;
+- a defensive `INVALID` result for missing/unknown lead-braking age;
+- separate causal `t_B_act_s` and diagnostic `t_B_act_diagnostic_s` fields;
+- a root-relative default path to `calibration/data/leader_braking_profile_50kmh.csv` and the profile-validation JSON;
+- a 4.0 m default `M_safe`, matching the documented pilot C/D configuration.
+
+For the next content-focused pilot, the preliminary screening proposal is to retain the calibrated single-speed target (49.2787 km/h) and use one common initial bumper gap of 6.0 m. The value is a screening candidate slightly above `M_safe + E_gap,max = 5.8 m`; it is **not yet validated in CARLA**. First verify the physical-preventability control at the same 6.0 m gap, then compare zero-delay Gate and integer-tick delays (for example 0.10, 0.20, 0.30, 0.40, and 0.50 s). Keep the 6.0 m gap identical across all compared runs. If the event is not physically preventable or no meaningful UNSAFE event occurs during active lead braking, revise the single common gap before the factor series—not separately for each speed. The current runner remains single-speed; do not use it for a multi-speed series until separate ego/lead profile selection is implemented.
+
+Example command from the repository root (one run at the proposed 6.0 m gap):
+
+```bash
+python pilot/code/carla_two_vehicle_safety_gate_v1_2_2.py \
+  --reference-profile calibration/data/leader_braking_profile_50kmh.csv \
+  --profile-validation-json calibration/data/calibration_profile_validation.json \
+  --target-speed-kmh 49.2787 --initial-gap-m 6.0 \
+  --safe-margin-m 4.0 --gate-delay-s 0.50
+```
+
+Important implementation boundary: v1.2.2 still loads **one fixed 50 km/h profile** for the present single-speed pilot. The new four-speed mean-profile CSV is not automatically selected by separate ego/lead initial speeds. Multi-speed profile selection and speed interpolation remain a subsequent implementation task. The historical A–D and INVALID results in `pilot/data/` were generated before this post-review runner and are not retroactively recalculated with its conservative error correction.
+
+### Reproducing the active-window leader-profile metrics
+
+```bash
+python pilot/code/analyze_lead_profile_active_window.py
+```
+
+This produces `pilot/data/lead_profile_active_window_comparison.csv` for A, C, and D on the common first 1.42 s active braking window. The saved A file does not contain CARLA `get_acceleration()` or gear telemetry columns; claims based on those channels must therefore be attributed to a separate instrumented diagnostic run, not to the archived A CSV.
+
+### Helper tests
+
+The pure helper tests do not require CARLA:
+
+```bash
+python -m unittest discover -s pilot/tests -v
+```
+
+They cover exact 50-tick timing, zero delay, rejection of delays that are not integer multiples of the fixed step, conversion of unknown lead-braking start time into an `INVALID` reason, loading of the profile-validation bound, rejection of missing validation metadata, and treating a missing braking-profile file as an empty profile so the episode can enter `INVALID` rather than aborting before the episode.
+
+The historical v1.2.1 runner and saved A–D results are retained for provenance. Use v1.2.2 for the next pilot only after checking the chosen scenario in CARLA; the post-review runner has not itself been executed in CARLA in this repository build environment.
